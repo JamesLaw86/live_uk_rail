@@ -8,7 +8,7 @@ Created on Sun Dec  2 11:46:34 2018
 from suds.sax.element import Element
 from suds.client import Client
 
-class idbws_client(object):
+class ldbws_client(object):
     """ 
     Makes SOAP requests to the Live Departure Boards Web Service 
     passes requests to a suds client member.
@@ -153,9 +153,7 @@ class idbws_client(object):
            after it is expected to have departed, or after a terminal arrival.
            If a request is made for a service that is no longer available
            then a null value is returned."""
-        return self.__client.service.GetServiceDetails(str_serviceID)
-    
-        
+        return self.__client.service.GetServiceDetails(str_serviceID)   
                                                 
 if __name__ == '__main__' :
     with open('token.txt', 'r') as csv_file:
