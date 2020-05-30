@@ -158,7 +158,7 @@ class ldbws_client(object):
 if __name__ == '__main__' :
     with open('token.txt', 'r') as csv_file:
         key = csv_file.read()
-    client = idbws_client(key)
+    client = ldbws_client(key)
 
 
 

@@ -21,11 +21,18 @@ class train_obj:
         self.est_dept = est_dept
         self.calling_stops = calling_stops
         
+        
     def __repr__(self):
-        string = '<service_board: origin: ' + self.origin + ' destination: '\
-                  + self.destination + ' platform: ' + self.platform + \
-                  ' scheduled departure: ' + self.sch_dept + ' estimated departure' \
-                  + self.est_dept + ' calling stops: ' + self.calling_stops
+        string = '<train_obj: Origin: ' + self.origin + '\nDestination: '\
+                  + self.destination + '\nPlatform: ' + self.platform + \
+                  '\nScheduled departure: ' + self.sch_dept + '\nEstimated departure: ' \
+                  + self.est_dept
+                  
+        string += '\nCalling stops:\n'
+        for calling_stop in self.calling_stops:
+            string += str(calling_stop) + '\n'
+        string = string[:-1] + ' >'
+                      
         return string
         
 
@@ -80,35 +87,35 @@ class service_board(object):
         try:
             return train.etd
         except AttributeError:
-            return None
+            return ''
         
     def get_origin(self, train):
         """Extract the origin attribute from the train object"""
         try:
-            return train.origin
+            return train.origin.location[0].locationName
         except AttributeError:
-            return None
+            return ''
         
     def get_destination(self, train):
         """Extract the destination attribute from the train object"""
         try:
             return train.destination.location[0].locationName
         except AttributeError:
-            return None
+            return ''
     
     def get_platform(self, train):
         """Extract the platform attribute from the train object"""
         try:
             return train.platform
         except AttributeError:
-            return None
+            return ''
     
     def get_sch_dept(self, train):
         """Extract the scheduled departure time attribute from the train object"""
         try:
             return train.etd
         except AttributeError:
-            return None
+            return ''
     
     def get_calling_stops(self, train):
         """Extract the calling stops from the subsequentCallingPoints 
@@ -122,17 +129,15 @@ class service_board(object):
                                                 stop.st, stop.et))
             return calling_stops
         except AttributeError:
-            return None
+            return []
     
-
-
-
-
 
 if __name__ == '__main__' :
     with open('token.txt', 'r') as csv_file:
         key = csv_file.read()
     board = service_board(key)
     services = board.get_services('VIC', 10)
+    for service in services:
+        print(services[service], '\n')
     
 
