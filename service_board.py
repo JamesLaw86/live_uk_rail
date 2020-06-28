@@ -76,7 +76,7 @@ class service_board(object):
             calling_stops = self.get_calling_stops(train)
             
             self.trains[i] = train_obj(origin, destination, platform,
-                               sch_dept, est_dept, calling_stops)
+                                       est_dept, sch_dept, calling_stops)
             i += 1
             
         return self.trains
@@ -113,7 +113,7 @@ class service_board(object):
     def get_sch_dept(self, train):
         """Extract the scheduled departure time attribute from the train object"""
         try:
-            return train.etd
+            return train.std
         except AttributeError:
             return ''
     
